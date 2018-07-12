@@ -7,7 +7,7 @@ import android.view.WindowManager;
 
 import com.sdsmdg.tastytoast.TastyToast;
 
-
+//code by Aman
 public class MainActivity extends AppCompatActivity {
 
 
