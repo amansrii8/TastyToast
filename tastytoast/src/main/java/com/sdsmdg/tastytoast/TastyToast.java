@@ -4,6 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +35,7 @@ public class TastyToast {
     static WarningToastView warningToastView;
     static ErrorToastView errorToastView;
     static InfoToastView infoToastView;
-    static DefaultToastView defaultToastView;
+    static ImageView defaultToastView;
     static ConfusingToastView confusingToastView;
 
     public static Toast makeText(Context context, String msg, int length, int type) {
@@ -120,8 +124,8 @@ public class TastyToast {
 
                 TextView text = (TextView) layout.findViewById(R.id.toastMessage);
                 text.setText(msg);
-                defaultToastView = (DefaultToastView) layout.findViewById(R.id.defaultView);
-                defaultToastView.startAnim();
+                defaultToastView = (ImageView) layout.findViewById(R.id.defaultView);
+                setAnimation(defaultToastView);
                 text.setBackgroundResource(R.drawable.default_toast);
                 text.setTextColor(Color.parseColor("#FFFFFF"));
                 toast.setView(layout);
@@ -143,6 +147,21 @@ public class TastyToast {
         toast.setDuration(length);
         toast.show();
         return toast;
+    }
+
+
+    private static void setAnimation(ImageView image) {
+        Animation animation = new AlphaAnimation((float) 1, 0); // Change alpha from fully visible to invisible
+        animation.setDuration(400); // duration - half a second
+        animation.setInterpolator(new LinearInterpolator()); // do not alter
+        // animation
+        // rate
+        animation.setRepeatCount(Animation.INFINITE); // Repeat animation
+        // infinitely
+        animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the
+        // end so the button will
+        // fade back in
+        image.startAnimation(animation);
     }
 
 }
